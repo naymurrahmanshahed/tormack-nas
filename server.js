@@ -6,6 +6,7 @@ const cors = require("cors");
 
 const mongoose = require("mongoose");
 
+const userRoutes = require("./routes/user");
 //express app
 const app = express();
 
@@ -23,6 +24,8 @@ app.use(express.json());
 app.get("/", (req, res) => {
   res.status(200).json({ message: " Welcome to tormack server!" });
 });
+
+app.use("/api/auth/user", userRoutes);
 
 const port = process.env.PORT || 8080;
 const url = process.env.MONGO_URL;

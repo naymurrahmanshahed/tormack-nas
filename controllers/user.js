@@ -95,8 +95,27 @@ const getUser = async (req, res) => {
 
 const updateUser = async () => {};
 
+//delete an user
+
+const deleteUser = async (req, res) => {
+  try {
+    const { userId } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+      throw Error("Uniauthorized access.");
+    }
+    const user = await User.findByIdAndDelete(userId);
+    if (userId !== req.user?._id.toString()) {
+      throw Error("Unauthorized access.");
+    }
+  } catch (err) {
+    res.status(404).json({ error: err.message });
+  }
+};
+
 module.exports = {
   signupUser,
   loginUser,
   getUser,
+  deleteUser,
 };

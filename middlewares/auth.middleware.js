@@ -6,7 +6,7 @@ const authMiddleware = async (req, res, next) => {
   try {
     const authHeader = req.headers.authorization;
 
-    if (!authHeader || !authHeader.startWith("Bearer")) {
+    if (!authHeader || !authHeader.startsWith("Bearer")) {
       throw Error("Invalid token format");
     }
 

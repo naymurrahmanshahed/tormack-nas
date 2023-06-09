@@ -5,7 +5,7 @@ const deviceSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  hostName: {
+  hostname: {
     type: String,
     required: true,
   },
@@ -24,4 +24,4 @@ const deviceSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.modelNames("Device", deviceSchema);
+module.exports = mongoose.model("Device", deviceSchema);

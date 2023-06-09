@@ -7,7 +7,7 @@ const mongoose = require("mongoose");
 //jwt token
 const createToken = (_id) => {
   //create new token
-  return jwt.sign(_id, process.env.JWT_SECRET, { expiresIn: "1d" });
+  return jwt.sign({ _id }, process.env.JWT_SECRET, { expiresIn: "1d" });
 };
 
 // signup user

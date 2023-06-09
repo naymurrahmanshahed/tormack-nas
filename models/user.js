@@ -97,4 +97,4 @@ userSchema.statics.login = async function (email, password, ipAddress) {
   return user;
 };
 
-module.export = mongoose.model("User", userSchema);
+module.exports = mongoose.model("User", userSchema);

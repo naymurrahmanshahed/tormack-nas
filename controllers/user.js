@@ -93,7 +93,34 @@ const getUser = async (req, res) => {
 
 //update user
 
-const updateUser = async () => {};
+const updateUser = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const { name } = req.body;
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+      throw Error("User not found.");
+    }
+
+    if (userId !== req.user?._id.toString()) {
+      throw Error("Unauthorized access.");
+    }
+
+    if (!name) {
+      throw Error("Name field must be filled");
+    }
+
+    const user = await User.findByIdAndUpdate(
+      userId,
+      { $set: { name } },
+      { new: true }
+    );
+    if (!user) {
+      throw Error("User Not Found");
+    }
+  } catch (err) {
+    res.status(404).json({ error: err.message });
+  }
+};
 
 //delete an user
 
@@ -117,5 +144,6 @@ module.exports = {
   signupUser,
   loginUser,
   getUser,
+  updateUser,
   deleteUser,
 };

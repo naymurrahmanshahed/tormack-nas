@@ -143,10 +143,16 @@ const deleteUser = async (req, res) => {
     if (!mongoose.Types.ObjectId.isValid(userId)) {
       throw Error("Uniauthorized access.");
     }
-    const user = await User.findByIdAndDelete(userId);
+
     if (userId !== req.user?._id.toString()) {
       throw Error("Unauthorized access.");
     }
+    const user = await User.findByIdAndDelete(userId);
+    if (!user) {
+      throw Error("User not found.");
+    }
+
+    res.status(200).json(user);
   } catch (err) {
     res.status(404).json({ error: err.message });
   }
